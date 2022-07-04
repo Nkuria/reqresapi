@@ -1,8 +1,9 @@
 <template>
   <div>
     <h1>Welcome</h1>
+    <p v-if="!isLoggedIn">Login to view all users</p>
     <router-link v-if="!isLoggedIn" to="/login"><button>Login</button></router-link>
-     <ul v-for="user in users" v-bind:key="user.id">
+     <ul v-if="isLoggedIn" v-for="user in users" v-bind:key="user.id">
       <li>{{ user.email }}</li>
       <p>{{ user.first_name }}</p>
     </ul>
