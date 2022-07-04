@@ -13,6 +13,7 @@
   </div>
 </template>
 <script>
+import { mapMutations } from "vuex";
 export default {
   data: () => {
     return {
@@ -21,6 +22,7 @@ export default {
     };
   },
   methods: {
+     ...mapMutations(["setUser", "setToken"]), 
 async login(e) {
       e.preventDefault();
       const response = await fetch("https://reqres.in/api/login", {
@@ -33,7 +35,11 @@ async login(e) {
           password: this.password,
         }),
       });
-      console.log(response)
+      let res = await response.json();
+
+      this.setUser(this.email);
+      this.setToken(res.token);
+      this.$router.push("/");
     },
   },
 };
